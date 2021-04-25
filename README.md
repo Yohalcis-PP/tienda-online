@@ -21,5 +21,8 @@ Para eliminar una compra que excedfió las 12H, se crea una factura por el 10% d
 
 
 Bugs:
-El editar compra no funciona aunque la logíca está implementada de buena forma
-Se identificó el problema con relación a Hibernate, al momento de editar en cascada, sin embargo la ausencia de tiempo restante no permitió que se resolviera.
+El editar compra no funciona según debe ser, aunque la logíca está implementada de buena forma,
+Se identificó el problema con relación a Hibernate, al momento de editar en cascada, sin embargo la ausencia de tiempo restante no permitió que se resolviera adecuadamente y se opto por implementar lo siguiente:
+
+como solución para poder mostrar lo lógica de negocio, se implementó el actualizar de una forma inadecuada, poco escalable y poco sostenible, es deber mejorar esta parte, pues no se actualiza, en verdad se elimina y se crea un nuevo registro, simulando el Update, pero con el gran problema que pierde el Id, y por ende se convierte en un proceso inestable.
+
