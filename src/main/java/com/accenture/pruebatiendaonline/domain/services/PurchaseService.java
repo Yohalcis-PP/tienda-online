@@ -174,11 +174,11 @@ public class PurchaseService implements IPurchaseService {
         PurchaseDTO purchaseDto = _purchaseRepository.getPurchase(purchase.getPurchaseId()).get();
 
         boolean isEdit = isEditable(purchaseDto, purchase);//Criterios de aceptacion Historia 2.2
+        //Mejorar implementación
         if(isEdit){
             var purchaseLocal = managePurchase(purchase);
             purchaseLocal.setComment("CompraActualizada");
             purchaseLocal.setActive(true);
-
             _purchaseRepository.delete(purchase.getPurchaseId());
             return _purchaseRepository.save(purchaseLocal);
         }else{
