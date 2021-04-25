@@ -86,7 +86,7 @@ public class PurchaseService implements IPurchaseService {
 
         return totalProducs;
     }
-    
+
     //Criterios de aceptacion Historia 2.1
     private PurchaseDTO managePurchase(PurchaseDTO purchase){
         List<PurchaseItem> purchaseItems = totalProduct(purchase.getItems());
@@ -175,16 +175,12 @@ public class PurchaseService implements IPurchaseService {
 
         boolean isEdit = isEditable(purchaseDto, purchase);//Criterios de aceptacion Historia 2.2
         if(isEdit){
-            purchaseDto.setComment("CompraActualizada");
             var purchaseLocal = managePurchase(purchase);
-            purchaseDto.setDate(purchaseLocal.getDate());
-            purchaseDto.setPaymentMethod(purchaseLocal.getPaymentMethod());
-            purchaseDto.setTotal(purchaseLocal.getTotal());
-            purchaseDto.setIva(purchaseLocal.getIva());
-            purchaseDto.setDeliveryCharges(purchaseLocal.getDeliveryCharges());
-            purchaseDto.setGrandTotal(purchaseLocal.getGrandTotal());
-            purchaseDto.setItems(purchaseLocal.getItems());
-            return _purchaseRepository.save(purchaseDto);
+            purchaseLocal.setComment("CompraActualizada");
+            purchaseLocal.setActive(true);
+
+            _purchaseRepository.delete(purchase.getPurchaseId());
+            return _purchaseRepository.save(purchaseLocal);
         }else{
             return null;
         }
